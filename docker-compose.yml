@@ -17,7 +17,6 @@ services:
       - "action.auto_create_index=false"
       - "plugins.security.ssl.http.enabled=false"
       - "plugins.security.disabled=true"
-      - "index.mapping.total_fields.limit=:2000"
     ulimits:
       memlock:
         hard: -1

@@ -19,6 +19,34 @@ To get the desired image edit the `GRAYLOG_IMAGE` environment variable in the .e
 
 Be sure to to set the `GRAYLOG_PASSWORD_SECRET` and `GRAYLOG_ROOT_PASSWORD_SHA2` environment variables too! Graylog won't start without these.
 
+## Increase OpenSearch perfomance
+
+Before launching you should review some important system settings that can impact the performance of your OpenSearch services.
+
+Disable memory paging and swapping performance on the host to improve performance.
+```
+swapoff -a
+``` 
+Increase the number of memory maps available to OpenSearch. Create a sysctl config file
+```
+nano /etc/sysctl.d/graylog-docker.conf
+```
+
+Add a line to define the desired value or change the value if the key exists and then save your changes.
+```
+vm.max_map_count=262144
+```
+
+Reload the kernel parameters using sysctl
+```
+sysctl --system
+```
+
+Verify that the change was applied by checking the value
+```
+cat /proc/sys/vm/max_map_count
+```
+
 ## Starting Graylog
 
 After you've configured `GRAYLOG_PASSWORD_SECRET` and `GRAYLOG_ROOT_PASSWORD_SHA2`, run these commands to start the instance:
